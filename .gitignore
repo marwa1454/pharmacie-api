@@ -1,0 +1,28 @@
+# Environnements virtuels
+venv/
+env/
+ENV/
+
+# Fichiers Python compilés
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Fichiers d'environnement
+.env
+.env.*
+
+# Fichiers de médias uploadés
+Uploads/
+
+# Fichiers IDE
+.idea/
+.vscode/
+
+# Fichiers Docker locaux
+docker-compose.override.yml
+
+# Fichiers de base de données
+*.db
+*.sqlite3
+EOF

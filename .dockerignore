@@ -1,0 +1,39 @@
+# Ignorer les environnements virtuels
+.venv/
+venv/
+env/
+
+# Ignorer les fichiers de cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorer les fichiers de configuration locaux
+.env
+local_settings.py
+
+# Ignorer les fichiers de développement
+.git/
+.gitignore
+.vscode/
+.idea/
+*.log
+
+# Ignorer les fichiers de build et de déploiement
+Dockerfile
+docker-compose.yml
+build/
+dist/
+
+# Ignorer les fichiers de tests
+tests/
+test_*.py
+
+# Ignorer les fichiers de documentation
+docs/
+README.md
+
+# Ignorer les fichiers temporaires
+tmp/
+temp/
