@@ -14,6 +14,13 @@ services:
       - ./Uploads:/app/Uploads:rw
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
   db:
     image: mysql:8.0
     environment:
@@ -33,8 +40,26 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "8020:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./Uploads:/app/Uploads:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - app-network
+
 volumes:
   db-data:
+
 networks:
   app-network:
     driver: bridge
+
+    

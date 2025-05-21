@@ -11,11 +11,23 @@ import os
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from file_manager import save_file, delete_file
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 # Créer les tables dans la base de données
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Pharmacie API", description="API pour la gestion d'une pharmacie")
+
+# Configurer CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Autorise toutes les origines pour le développement. En production, remplacez par ["http://votre-frontend.com"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # -------------------- CATÉGORIES --------------------
 @app.post("/categories/", response_model=schemas.CategorieResponse, tags=["Categories"])
