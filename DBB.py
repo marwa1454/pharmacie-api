@@ -1,7 +1,6 @@
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 from dotenv import load_dotenv
 
 # Charger le fichier .env
@@ -17,7 +16,7 @@ if not all([DB_USERNAME, DB_PASSWORD, DB_NAME]):
     raise ValueError("Les variables d'environnement DB_USERNAME, DB_PASSWORD ou DB_NAME ne sont pas définies.")
 
 # Définir la DATABASE_URL
-DATABASE_URL = f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@localhost:3307/{DB_NAME}"
+DATABASE_URL = f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@db:3306/{DB_NAME}"
 
 # Créer le moteur SQLAlchemy
 engine = create_engine(DATABASE_URL)

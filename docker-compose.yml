@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   app:
     build:
@@ -8,6 +9,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
       - DATABASE_URL=mysql+pymysql://${DB_USERNAME}:${DB_PASSWORD}@db:3306/${DB_NAME}
     volumes:
@@ -15,7 +18,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -61,4 +64,3 @@ volumes:
 networks:
   app-network:
     driver: bridge
-
