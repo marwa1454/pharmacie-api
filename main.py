@@ -20,6 +20,10 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Pharmacie API", description="API pour la gestion d'une pharmacie")
 
+@app.get("/", response_model=dict)
+def read_root():
+    return {"message": "API Pharmacie est en ligne"}
+
 # Configurer CORS
 app.add_middleware(
     CORSMiddleware,

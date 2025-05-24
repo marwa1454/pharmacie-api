@@ -21,8 +21,8 @@ Uploads/
 
 # Fichiers Docker locaux
 docker-compose.override.yml
+db-data/
 
 # Fichiers de base de données
 *.db
 *.sqlite3
-EOF

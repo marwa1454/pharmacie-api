@@ -1,17 +1,12 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import os
 
-# Déterminer si l'application est dans Docker (via une variable d'environnement)
-IS_DOCKER = os.getenv("IS_DOCKER", "false").lower() == "true"
-
-# Définir l'URL de la base de données selon l'environnement
-DEFAULT_DATABASE_URL = (
-    "mysql+pymysql://Marwa:Marwa77233473@db:3306/DBB" if IS_DOCKER
-    else "mysql+pymysql://Marwa:Marwa77233473@localhost:3307/DBB"
-)
-DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
+# Récupérer l'URL de la base de données depuis les variables d'environnement
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError("La variable d'environnement DATABASE_URL n'est pas définie")
 
 # Création du moteur SQLAlchemy
 engine = create_engine(DATABASE_URL)
