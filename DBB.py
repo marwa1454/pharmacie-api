@@ -2,22 +2,24 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
-# Récupérer l'URL de la base de données depuis les variables d'environnement
-DATABASE_URL = os.getenv("DATABASE_URL")
-if not DATABASE_URL:
-    raise ValueError("La variable d'environnement DATABASE_URL n'est pas définie")
+# Charger le fichier .env
+load_dotenv()
 
-# Création du moteur SQLAlchemy
+# Récupérer les variables d'environnement
+DB_USERNAME = os.getenv("DB_USERNAME")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME")
+
+# Définir la DATABASE_URL
+DATABASE_URL = f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@localhost:3307/{DB_NAME}"
+
+# Créer le moteur SQLAlchemy
 engine = create_engine(DATABASE_URL)
-
-# Création d'une session locale
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Base pour les modèles déclaratifs
 Base = declarative_base()
 
-# Fonction pour obtenir une session de base de données
 def get_db():
     db = SessionLocal()
     try:
